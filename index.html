@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Zelf de was doen</title>
+<style>
+:root { font-family: system-ui, -apple-system, Segoe UI, sans-serif; }
+body { margin:0; background:#f5f5f5; color:#171717; }
+.wrap { max-width:520px; margin:auto; min-height:100vh; background:white; }
+header { padding:20px 22px 8px; text-align:center; }
+h1 { font-size:28px; margin:6px 0; }
+.sub { font-size:17px; color:#555; }
+.card { margin:16px; padding:26px 22px; border:2px solid #ddd; border-radius:22px; text-align:center; min-height:360px; display:flex; flex-direction:column; justify-content:center; }
+.icon { font-size:70px; }
+h2 { font-size:28px; margin:12px 0; }
+p { font-size:21px; line-height:1.4; }
+.small { font-size:16px; color:#555; }
+button { width:100%; padding:18px; margin-top:12px; border:0; border-radius:15px; background:#111; color:white; font-size:21px; font-weight:700; cursor:pointer; }
+button.secondary { background:#e9e9e9; color:#111; }
+.choices button { margin:8px 0; }
+.nav { display:flex; gap:10px; }
+.nav button { flex:1; }
+.screen { display:none; }
+.screen.active { display:block; }
+.notice { background:#fff6d9; padding:12px; border-radius:12px; font-size:15px; text-align:left; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><h1>🧺 Zelf de was doen</h1><div class="sub">Ik help je stap voor stap.</div></header>
+
+<div id="s0" class="screen active"><div class="card">
+<div class="icon">👋</div><h2>Klaar om te beginnen?</h2>
+<p>We doen de was samen, één stap tegelijk.</p>
+<button onclick="go(1)">START</button>
+</div></div>
+
+<div id="s1" class="screen"><div class="card">
+<div class="icon">🧺</div><h2>Stap 1 — Sorteer de was</h2>
+<p>Leg <b>kleding</b>, <b>handdoeken</b> en <b>beddengoed</b> apart.</p>
+<div class="nav"><button class="secondary" onclick="go(0)">Terug</button><button onclick="go(2)">Volgende</button></div>
+</div></div>
+
+<div id="s2" class="screen"><div class="card">
+<div class="icon">🏷️</div><h2>Stap 2 — Kijk op het waslabel</h2>
+<p>Controleer hoe de was gewassen mag worden.</p>
+<div class="notice">De temperatuur op het label is belangrijker dan een algemene regel.</div>
+<div class="nav"><button class="secondary" onclick="go(1)">Terug</button><button onclick="go(3)">Volgende</button></div>
+</div></div>
+
+<div id="s3" class="screen"><div class="card">
+<div class="icon">👕</div><h2>Stap 3 — Vul de machine</h2>
+<p>Doe één soort was tegelijk in de wasmachine.</p>
+<div class="nav"><button class="secondary" onclick="go(2)">Terug</button><button onclick="go(4)">Volgende</button></div>
+</div></div>
+
+<div id="s4" class="screen"><div class="card">
+<div class="icon">🧴</div><h2>Stap 4 — Wasmiddel</h2>
+<p>Doe de afgesproken hoeveelheid wasmiddel in <b>vakje II</b>.</p>
+<div class="nav"><button class="secondary" onclick="go(3)">Terug</button><button onclick="go(5)">Volgende</button></div>
+</div></div>
+
+<div id="s5" class="screen"><div class="card">
+<div class="icon">🚪</div><h2>Stap 5 — Deur dicht</h2>
+<p>Controleer of er geen was tussen de deur zit.</p>
+<div class="nav"><button class="secondary" onclick="go(4)">Terug</button><button onclick="go(6)">Volgende</button></div>
+</div></div>
+
+<div id="s6" class="screen"><div class="card">
+<div class="icon">⚙️</div><h2>Stap 6 — Wat was je?</h2>
+<div class="choices">
+<button onclick="choice('👕 Kleding','Gebruik het afgesproken kledingprogramma. Vaak 30 °C, als het waslabel dit toestaat.')">👕 KLEDING</button>
+<button onclick="choice('🛁 Handdoeken','Gebruik het afgesproken programma. Vaak 60 °C, alleen als het waslabel dit toestaat.')">🛁 HANDDOEKEN</button>
+<button onclick="choice('🛏️ Beddengoed','Gebruik het afgesproken programma en volg het waslabel.')">🛏️ BEDDENGOED</button>
+</div>
+<button class="secondary" onclick="go(5)">Terug</button>
+</div></div>
+
+<div id="s7" class="screen"><div class="card">
+<div class="icon" id="choiceIcon">⚙️</div><h2 id="choiceTitle"></h2><p id="choiceText"></p>
+<div class="nav"><button class="secondary" onclick="go(6)">Andere keuze</button><button onclick="go(8)">Volgende</button></div>
+</div></div>
+
+<div id="s8" class="screen"><div class="card">
+<div class="icon">▶️</div><h2>Stap 7 — Druk op START</h2>
+<p>De wasmachine gaat nu draaien.</p>
+<div class="nav"><button class="secondary" onclick="go(7)">Terug</button><button onclick="go(9)">Was is klaar</button></div>
+</div></div>
+
+<div id="s9" class="screen"><div class="card">
+<div class="icon">✅</div><h2>Goed gedaan!</h2>
+<p>Haal de was uit de machine en hang hem op, of gebruik de droger volgens afspraak en waslabel.</p>
+<button onclick="go(0)">Opnieuw beginnen</button>
+</div></div>
+
+</div>
+<script>
+function go(n){ document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active')); document.getElementById('s'+n).classList.add('active'); window.scrollTo(0,0); }
+function choice(title,text){ document.getElementById('choiceTitle').textContent=title; document.getElementById('choiceText').textContent=text; go(7); }
+</script>
+</body>
+</html>
