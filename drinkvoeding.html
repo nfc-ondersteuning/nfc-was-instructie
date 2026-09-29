@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mijn drinkmoment</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f6f7;
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+  color: #111;
+}
+
+.container {
+  max-width: 430px;
+  margin: 20px auto;
+}
+
+.card {
+  background: white;
+  padding: 30px 22px;
+  border-radius: 22px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.emoji {
+  font-size: 60px;
+}
+
+h1 {
+  font-size: 30px;
+  margin-bottom: 5px;
+}
+
+h2 {
+  font-size: 25px;
+}
+
+p {
+  font-size: 21px;
+  line-height: 1.5;
+}
+
+button {
+  width: 100%;
+  border: 0;
+  border-radius: 14px;
+  padding: 18px;
+  margin-top: 12px;
+  font-size: 20px;
+  font-weight: bold;
+  background: #111827;
+  color: white;
+}
+
+#klaar {
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🥤 Mijn drinkmoment</h1>
+<p>Ik help je stap voor stap.</p>
+
+<div class="card" id="stappen">
+
+<div class="emoji">🥤</div>
+
+<h2>Tijd voor je drinkvoeding</h2>
+
+<p>
+<strong>1.</strong> Pak je drinkvoeding.<br><br>
+<strong>2.</strong> Ga rustig zitten.<br><br>
+<strong>3.</strong> Neem je drinkvoeding zoals met jou is afgesproken.
+</p>
+
+<button onclick="klaar()">✓ IK BEN KLAAR</button>
+
+</div>
+
+<div class="card" id="klaar">
+
+<div class="emoji">🎉</div>
+
+<h2>Goed gedaan!</h2>
+
+<p>Je drinkmoment is klaar.</p>
+
+<button onclick="opnieuw()">NOG EEN KEER BEKIJKEN</button>
+
+</div>
+
+</div>
+
+<script>
+function klaar() {
+  document.getElementById("stappen").style.display = "none";
+  document.getElementById("klaar").style.display = "block";
+}
+
+function opnieuw() {
+  document.getElementById("klaar").style.display = "none";
+  document.getElementById("stappen").style.display = "block";
+}
+</script>
+
+</body>
+</html>
