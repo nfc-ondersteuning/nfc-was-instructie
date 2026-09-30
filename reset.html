@@ -1,0 +1,24 @@
+<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>RESET</title><style>
+body{font-family:Arial,sans-serif;margin:0;background:#f4f4f4;color:#171717}main{max-width:500px;margin:auto;min-height:100vh;background:#fff;padding:22px;box-sizing:border-box}.s{display:none}.on{display:block}.card{border:2px solid #ddd;border-radius:22px;padding:24px;margin-top:18px}h1{text-align:center;font-size:36px}h2{font-size:27px}p{font-size:20px;line-height:1.45}.scale{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}.scale button,.choice,.main{border:0;border-radius:13px;padding:15px;font-size:18px;font-weight:bold}.scale button,.choice{background:#eee;color:#111}.choice{width:100%;text-align:left;margin:6px 0}.main{width:100%;background:#222;color:#fff;margin-top:14px}.timer{text-align:center;font-size:58px;font-weight:bold;margin:22px}.big{text-align:center;font-size:58px}input{width:100%;box-sizing:border-box;padding:15px;font-size:19px;border:2px solid #ccc;border-radius:12px}
+</style></head><body><main>
+<section id="a" class="s on"><div class="card"><div class="big">🟠</div><h1>RESET</h1><h2>Mijn hoofd zit vol. Wat doe ik nu?</h2><button class="main" onclick="go('b')">START RESET</button></div></section>
+<section id="b" class="s"><div class="card"><h2>1. Hoe hoog is je spanning?</h2><p>0 = rustig · 10 = heel hoog</p><div id="m1" class="scale"></div></div></section>
+<section id="c" class="s"><div class="card"><h2>2. Kies één ding</h2><p>Je hoeft het niet allemaal te doen.</p>
+<button class="choice" onclick="pick('🎧 Eén rustig nummer opzetten')">🎧 Eén rustig nummer opzetten</button>
+<button class="choice" onclick="pick('🚶 5 minuten lopen')">🚶 5 minuten lopen</button>
+<button class="choice" onclick="pick('🌬️ 1 minuut rustig ademen')">🌬️ 1 minuut rustig ademen</button>
+<button class="choice" onclick="pick('🥤 Iets drinken')">🥤 Iets drinken</button>
+<button class="choice" onclick="pick('📵 Telefoon 5 minuten wegleggen')">📵 Telefoon 5 minuten wegleggen</button>
+<button class="choice" onclick="pick('💬 Iemand laten weten: Het loopt even op.')">💬 Iemand laten weten: “Het loopt even op.”</button></div></section>
+<section id="d" class="s"><div class="card"><h2>Dit heb je gekozen:</h2><p id="picked"></p><div id="timer" class="timer">05:00</div><button class="main" onclick="finish()">IK BEN KLAAR</button></div></section>
+<section id="e" class="s"><div class="card"><h2>3. Check opnieuw</h2><p>Hoe hoog is je spanning nu?</p><div id="m2" class="scale"></div></div></section>
+<section id="f" class="s"><div class="card"><div class="big">✓</div><h2>Je spanning is gezakt.</h2><p>Niet de hele dag oplossen. Alleen de eerstvolgende stap.</p><input id="step" placeholder="Wat ga ik NU doen?"><button class="main" onclick="go('h')">DIT GA IK DOEN</button></div></section>
+<section id="g" class="s"><div class="card"><h2>Het zakt nog niet.</h2><p>Gebruik de afspraken uit je signaleringsplan of neem contact op met de persoon die je daarvoor hebt afgesproken.</p><button class="main" onclick="go('a')">TERUG</button></div></section>
+<section id="h" class="s"><div class="card"><div class="big">🌱</div><h2>Eén kleine stap.</h2><p>Je hoeft niet alles tegelijk op te lossen.</p><button class="main" onclick="go('a')">KLAAR</button></div></section>
+</main><script>
+let first=0,t=null,left=300;function go(x){document.querySelectorAll('.s').forEach(z=>z.classList.remove('on'));document.getElementById(x).classList.add('on');scrollTo(0,0)}
+function scale(id,second){let e=document.getElementById(id);for(let i=0;i<=10;i++){let b=document.createElement('button');b.textContent=i;b.onclick=()=>{if(second){go(i<first?'f':'g')}else{first=i;go('c')}};e.appendChild(b)}}
+function pick(x){document.getElementById('picked').textContent=x;left=300;showtime();go('d');clearInterval(t);t=setInterval(()=>{left--;showtime();if(left<=0)finish()},1000)}
+function showtime(){let m=String(Math.floor(left/60)).padStart(2,'0'),s=String(left%60).padStart(2,'0');document.getElementById('timer').textContent=m+':'+s}
+function finish(){clearInterval(t);go('e')}scale('m1',false);scale('m2',true);
+</script></body></html>
