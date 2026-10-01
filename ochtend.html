@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ochtendroutine</title>
+
+<style>
+body{
+  font-family:Arial,sans-serif;
+  margin:0;
+  background:#f4f4f4;
+  color:#171717;
+}
+
+main{
+  max-width:500px;
+  margin:auto;
+  padding:20px;
+}
+
+h1,h2,p{
+  text-align:center;
+}
+
+.sub{
+  color:#666;
+}
+
+.card{
+  background:white;
+  border-radius:22px;
+  padding:28px 20px;
+  margin-top:20px;
+  box-shadow:0 2px 10px #ddd;
+}
+
+.big{
+  font-size:55px;
+  text-align:center;
+  margin-bottom:15px;
+}
+
+button{
+  width:100%;
+  padding:18px;
+  margin-top:18px;
+  border:0;
+  border-radius:14px;
+  background:#171717;
+  color:white;
+  font-size:18px;
+  font-weight:bold;
+}
+
+.step{
+  display:none;
+}
+
+.step.active{
+  display:block;
+}
+
+.timer{
+  font-size:44px;
+  font-weight:bold;
+  text-align:center;
+  margin:20px 0;
+}
+</style>
+</head>
+
+<body>
+
+<main>
+
+<h1>☀️ OCHTENDROUTINE</h1>
+<p class="sub">Eén stap tegelijk. Je hoeft niet alles tegelijk te doen.</p>
+
+<section class="step active">
+<div class="card">
+<div class="big">🛏️</div>
+<h2>1. Kom uit bed</h2>
+<p>Sta op en doe de gordijnen open.</p>
+<button onclick="next()">KLAAR →</button>
+</div>
+</section>
+
+<section class="step">
+<div class="card">
+<div class="big">🚿</div>
+<h2>2. Douchen</h2>
+<p>Douche of fris jezelf op.</p>
+<button onclick="next()">KLAAR →</button>
+</div>
+</section>
+
+<section class="step">
+<div class="card">
+<div class="big">👕</div>
+<h2>3. Schone kleren aan</h2>
+<p>Trek schone kleren aan.</p>
+<button onclick="next()">KLAAR →</button>
+</div>
+</section>
+
+<section class="step">
+<div class="card">
+<div class="big">🧺</div>
+<h2>4. Was in de wasmand</h2>
+<p>Doe je vuile kleren in de wasmand.</p>
+<button onclick="next()">KLAAR →</button>
+</div>
+</section>
+
+<section class="step">
+<div class="card">
+<div class="big">🪥</div>
+<h2>5. Tanden poetsen</h2>
+<p>Poets je tanden 2 minuten.</p>
+
+<div id="timer" class="timer">2:00</div>
+
+<button id="timerButton" onclick="startTimer()">
+START 2 MINUTEN
+</button>
+
+<button onclick="next()">TANDEN GEPOETST →</button>
+</div>
+</section>
+
+<section class="step">
+<div class="card">
+<div class="big">🧴</div>
+<h2>6. Deodorant</h2>
+<p>Doe deodorant op.</p>
+<button onclick="next()">KLAAR →</button>
+</div>
+</section>
+
+<section class="step">
+<div class="card">
+<div class="big">🎉</div>
+<h2>Klaar!</h2>
+<p>Je ochtendroutine zit erop.</p>
+<p><strong>Goed gedaan. Je bent klaar voor de dag.</strong></p>
+<button onclick="restart()">OPNIEUW BEGINNEN</button>
+</div>
+</section>
+
+</main>
+
+<script>
+let current = 0;
+let timerRunning = false;
+
+const steps = document.querySelectorAll(".step");
+
+function next(){
+  steps[current].classList.remove("active");
+  current++;
+  steps[current].classList.add("active");
+  window.scrollTo(0,0);
+}
+
+function restart(){
+  steps[current].classList.remove("active");
+  current = 0;
+  steps[current].classList.add("active");
+  resetTimer();
+  window.scrollTo(0,0);
+}
+
+function startTimer(){
+  if(timerRunning) return;
+
+  timerRunning = true;
+  let seconds = 120;
+
+  const display = document.getElementById("timer");
+  const button = document.getElementById("timerButton");
+
+  button.textContent = "TIMER LOOPT...";
+
+  const countdown = setInterval(function(){
+
+    seconds--;
+
+    let min = Math.floor(seconds / 60);
+    let sec = seconds % 60;
+
+    display.textContent =
+      min + ":" + String(sec).padStart(2,"0");
+
+    if(seconds <= 0){
+      clearInterval(countdown);
+      display.textContent = "KLAAR ✓";
+      button.textContent = "2 MINUTEN KLAAR";
+      timerRunning = false;
+    }
+
+  },1000);
+}
+
+function resetTimer(){
+  document.getElementById("timer").textContent = "2:00";
+  document.getElementById("timerButton").textContent =
+    "START 2 MINUTEN";
+  timerRunning = false;
+}
+</script>
+
+</body>
+</html>
