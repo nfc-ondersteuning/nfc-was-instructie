@@ -152,7 +152,7 @@ function startTimer() {
     soundReady = false;
   }
 
-  endTime = Date.now() + duration * 60 * 1000;
+  endTime = Date.now() + duration * 10 * 1000;
   show("running");
   updateClock();
   interval = setInterval(updateClock, 500);
