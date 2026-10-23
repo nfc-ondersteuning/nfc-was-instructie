@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PAUZE - Even ontprikkelen</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #edf3f0;
+    font-family: Arial, sans-serif;
+    color: #263b36;
+  }
+  main {
+    max-width: 480px;
+    margin: 30px auto;
+    padding: 25px;
+    background: white;
+    border-radius: 22px;
+    text-align: center;
+    box-shadow: 0 4px 18px #00000010;
+  }
+  h1 { font-size: 29px; }
+  p { font-size: 18px; line-height: 1.6; }
+  button {
+    display: block;
+    width: 100%;
+    padding: 17px;
+    margin: 12px 0;
+    border: none;
+    border-radius: 13px;
+    background: #527f72;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  button.secondary {
+    background: #e6efeb;
+    color: #263b36;
+  }
+  button:focus-visible {
+    outline: 3px solid #263b36;
+    outline-offset: 3px;
+  }
+  .hidden { display: none; }
+  #clock {
+    font-size: 60px;
+    font-weight: bold;
+    margin: 28px 0;
+  }
+  .small { font-size: 14px; color: #52635d; }
+</style>
+</head>
+<body>
+<main>
+  <h1>🎧 PAUZE</h1>
+  <p>Even rust voor jezelf.</p>
+
+  <section id="choose">
+    <h2>Hoe lang wil je pauze?</h2>
+    <button onclick="chooseTime(10)">10 minuten</button>
+    <button onclick="chooseTime(15)">15 minuten</button>
+    <button onclick="chooseTime(20)">20 minuten</button>
+  </section>
+
+  <section id="ready" class="hidden">
+    <h2>Jouw rustmoment</h2>
+    <p>Zoek een fijne plek.</p>
+    <p>Je mag zitten, liggen of iets rustigs doen.</p>
+    <p id="selectedTime"></p>
+    <button onclick="startTimer()">START PAUZE</button>
+    <button class="secondary" onclick="show('choose')">
+      Andere tijd kiezen
+    </button>
+  </section>
+
+  <section id="running" class="hidden">
+    <h2>Dit moment is voor jou 🌿</h2>
+    <p>Je hoeft even niets.</p>
+    <div id="clock" role="timer">10:00</div>
+    <p class="small">
+      Er klinkt één zacht belletje als de tijd voorbij is,
+      zolang deze pagina actief is.
+    </p>
+    <button class="secondary" onclick="finishEarly()">
+      Ik wil eerder stoppen
+    </button>
+  </section>
+
+  <section id="finished" class="hidden">
+    <h2>Je pauze is voorbij 🌿</h2>
+    <p>Hoe gaat het nu met je?</p>
+    <button onclick="result('better')">🙂 Het gaat beter</button>
+    <button onclick="result('more')">⏳ Ik wil meer rust</button>
+    <button onclick="result('help')">🤝 Ik wil hulp</button>
+  </section>
+
+  <section id="result" class="hidden">
+    <h2 id="resultTitle"></h2>
+    <p id="resultText"></p>
+    <button onclick="restart()">Opnieuw beginnen</button>
+  </section>
+
+  <p class="small">
+    Wil je je telefoon vergrendelen?
+    Gebruik dan liever de timer van je telefoon.
+    Een website kan niet altijd geluid maken
+    wanneer je scherm uitstaat.
+  </p>
+</main>
+
+<script>
+let duration = 10;
+let endTime = 0;
+let interval = null;
+let audioContext = null;
+let soundReady = false;
+let timerFinished = false;
+
+function show(id) {
+  for (const section of document.querySelectorAll("section")) {
+    section.classList.add("hidden");
+  }
+  document.getElementById(id).classList.remove("hidden");
+}
+
+function chooseTime(minutes) {
+  duration = minutes;
+  document.getElementById("selectedTime").textContent =
+    minutes + " minuten pauze";
+  show("ready");
+}
+
+function startTimer() {
+  clearInterval(interval);
+  timerFinished = false;
+
+  // Geluid voorbereiden na een tik op START.
+  soundReady = false;
+  try {
+    const AudioContextClass =
+      window.AudioContext || window.webkitAudioContext;
+    if (AudioContextClass) {
+      audioContext = audioContext ||
+        new AudioContextClass();
+      audioContext.resume();
+      soundReady = true;
+    }
+  } catch (error) {
+    soundReady = false;
+  }
+
+  endTime = Date.now() + duration * 60 * 1000;
+  show("running");
+  updateClock();
+  interval = setInterval(updateClock, 500);
+}
+
+function updateClock() {
+  const remaining = Math.max(
+    0, Math.ceil((endTime - Date.now()) / 1000)
+  );
+
+  const minutes = Math.floor(remaining / 60);
+  const seconds = remaining % 60;
+
+  document.getElementById("clock").textContent =
+    String(minutes).padStart(2, "0") + ":" +
+    String(seconds).padStart(2, "0");
+
+  if (remaining === 0 && !timerFinished) {
+    timerFinished = true;
+    clearInterval(interval);
+    playSoftBell();
+    show("finished");
+  }
+}
+
+function playSoftBell() {
+  if (!audioContext || !soundReady ||
+      audioContext.state !== "running") return;
+
+  try {
+    const oscillator = audioContext.createOscillator();
+    const volume = audioContext.createGain();
+
+    oscillator.type = "sine";
+    oscillator.frequency.setValueAtTime(
+      660, audioContext.currentTime
+    );
+
+    volume.gain.setValueAtTime(
+      0.0001, audioContext.currentTime
+    );
+    volume.gain.exponentialRampToValueAtTime(
+      0.045, audioContext.currentTime + 0.06
+    );
+    volume.gain.exponentialRampToValueAtTime(
+      0.0001, audioContext.currentTime + 1.2
+    );
+
+    oscillator.connect(volume);
+    volume.connect(audioContext.destination);
+    oscillator.start();
+    oscillator.stop(audioContext.currentTime + 1.2);
+  } catch (error) {
+    // De pagina blijft werken als geluid niet lukt.
+  }
+}
+
+function finishEarly() {
+  clearInterval(interval);
+  timerFinished = true;
+  show("finished");
+}
+
+function result(choice) {
+  const title = document.getElementById("resultTitle");
+  const text = document.getElementById("resultText");
+
+  if (choice === "better") {
+    title.textContent = "Fijn dat het beter gaat 🌿";
+    text.textContent =
+      "Kies rustig wat je hierna wilt doen.";
+  } else if (choice === "more") {
+    title.textContent = "Meer rust is oké";
+    text.textContent =
+      "Je mag opnieuw een pauze kiezen.";
+  } else {
+    title.textContent = "Je hoeft het niet alleen te doen";
+    text.textContent =
+      "Vraag hulp aan je ouder, begeleider of " +
+      "iemand anders die je vertrouwt.";
+  }
+
+  show("result");
+}
+
+function restart() {
+  clearInterval(interval);
+  timerFinished = true;
+  show("choose");
+}
+
+document.addEventListener("visibilitychange", function() {
+  if (!document.hidden &&
+      !document.getElementById("running")
+        .classList.contains("hidden")) {
+    updateClock();
+  }
+});
+</script>
+</body>
+</html>
