@@ -18,7 +18,7 @@ body{font-family:Arial,sans-serif;margin:0;background:#f4f4f4;color:#171717}main
 </main><script>
 let first=0,t=null,left=300;function go(x){document.querySelectorAll('.s').forEach(z=>z.classList.remove('on'));document.getElementById(x).classList.add('on');scrollTo(0,0)}
 function scale(id,second){let e=document.getElementById(id);for(let i=0;i<=10;i++){let b=document.createElement('button');b.textContent=i;b.onclick=()=>{if(second){go(i<first?'f':'g')}else{first=i;go('c')}};e.appendChild(b)}}
-function pick(x){document.getElementById('picked').textContent=x;left=300;showtime();go('d');clearInterval(t);t=setInterval(()=>{left--;showtime();if(left<=0)finish()},1000)}
+function pick(x){document.getElementById('picked').textContent=x;left=60;showtime();go('d');clearInterval(t);t=setInterval(()=>{left--;showtime();if(left<=0)finish()},1000)}
 function showtime(){let m=String(Math.floor(left/60)).padStart(2,'0'),s=String(left%60).padStart(2,'0');document.getElementById('timer').textContent=m+':'+s}
 function finish(){clearInterval(t);go('e')}scale('m1',false);scale('m2',true);
 </script></body></html>
