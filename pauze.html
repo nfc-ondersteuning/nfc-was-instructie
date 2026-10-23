@@ -6,75 +6,53 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PAUZE - Even ontprikkelen</title>
 <style>
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  padding: 16px;
-  background: #edf3f0;
-  color: #263b36;
-  font-family: Arial, sans-serif;
-}
-
-main {
-  max-width: 480px;
-  margin: 24px auto;
-  padding: 25px;
-  background: white;
-  border-radius: 22px;
-  text-align: center;
-  box-shadow: 0 4px 18px #00000010;
-}
-
-h1 { font-size: 30px; }
-h2 { font-size: 23px; }
-
-p {
-  font-size: 18px;
-  line-height: 1.6;
-}
-
-button {
-  display: block;
-  width: 100%;
-  margin: 12px 0;
-  padding: 17px;
-  border: none;
-  border-radius: 13px;
-  background: #527f72;
-  color: white;
-  font-size: 18px;
-  cursor: pointer;
-}
-
-button.secondary {
-  background: #e6efeb;
-  color: #263b36;
-}
-
-button:focus-visible {
-  outline: 3px solid #263b36;
-  outline-offset: 3px;
-}
-
-.hidden { display: none; }
-
-.info {
-  padding: 15px;
-  margin: 20px 0;
-  background: #edf3f0;
-  border-radius: 13px;
-  font-size: 17px;
-  line-height: 1.6;
-}
-
-.small {
-  font-size: 14px;
-  color: #52635d;
-}
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #edf3f0;
+    font-family: Arial, sans-serif;
+    color: #263b36;
+  }
+  main {
+    max-width: 480px;
+    margin: 30px auto;
+    padding: 25px;
+    background: white;
+    border-radius: 22px;
+    text-align: center;
+    box-shadow: 0 4px 18px #00000010;
+  }
+  h1 { font-size: 29px; }
+  p { font-size: 18px; line-height: 1.6; }
+  button {
+    display: block;
+    width: 100%;
+    padding: 17px;
+    margin: 12px 0;
+    border: none;
+    border-radius: 13px;
+    background: #527f72;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  button.secondary {
+    background: #e6efeb;
+    color: #263b36;
+  }
+  button:focus-visible {
+    outline: 3px solid #263b36;
+    outline-offset: 3px;
+  }
+  .hidden { display: none; }
+  #clock {
+    font-size: 60px;
+    font-weight: bold;
+    margin: 28px 0;
+  }
+  .small { font-size: 14px; color: #52635d; }
 </style>
 </head>
-
 <body>
 <main>
   <h1>🎧 PAUZE</h1>
@@ -87,122 +65,153 @@ button:focus-visible {
     <button onclick="chooseTime(20)">20 minuten</button>
   </section>
 
-  <section id="phone" class="hidden">
-    <h2>Jouw pauze: <span id="minutes"></span> minuten</h2>
-    <p>Welke telefoon gebruik je?</p>
-    <button onclick="showInstructions('iphone')">
-      🍎 iPhone
-    </button>
-    <button onclick="showInstructions('android')">
-      📱 Android
-    </button>
+  <section id="ready" class="hidden">
+    <h2>Jouw rustmoment</h2>
+    <p>Zoek een fijne plek.</p>
+    <p>Je mag zitten, liggen of iets rustigs doen.</p>
+    <p id="selectedTime"></p>
+    <button onclick="startTimer()">START PAUZE</button>
     <button class="secondary" onclick="show('choose')">
       Andere tijd kiezen
     </button>
   </section>
 
-  <section id="instructions" class="hidden">
-    <h2>⏰ Zet je timer aan</h2>
-    <div id="steps" class="info"></div>
-
-    <p>
-      Kies een rustig geluid voor je timer.
-      Zet daarna je telefoon weg.
+  <section id="running" class="hidden">
+    <h2>Dit moment is voor jou 🌿</h2>
+    <p>Je hoeft even niets.</p>
+    <div id="clock" role="timer">10:00</div>
+    <p class="small">
+      Er klinkt één zacht belletje als de tijd voorbij is,
+      zolang deze pagina actief is.
     </p>
-
-    <button onclick="show('rest')">
-      Ik heb mijn timer ingesteld
-    </button>
-    <button class="secondary" onclick="show('phone')">
-      Terug
-    </button>
-  </section>
-
-  <section id="rest" class="hidden">
-    <h2>🌿 Dit moment is voor jou</h2>
-    <p>Je hoeft nu even niets.</p>
-    <p>
-      Je telefoon mag op slot.
-      Je eigen telefoontimer laat weten
-      wanneer je pauze voorbij is.
-    </p>
-    <div class="info">
-      Rust nemen mag op jouw manier.
-      Bijvoorbeeld met stilte, muziek,
-      bewegen of even lekker zitten.
-    </div>
-    <button onclick="show('finished')">
-      Mijn pauze is voorbij
+    <button class="secondary" onclick="finishEarly()">
+      Ik wil eerder stoppen
     </button>
   </section>
 
   <section id="finished" class="hidden">
-    <h2>Hoe gaat het nu met je?</h2>
-    <button onclick="result('better')">
-      🙂 Het gaat beter
-    </button>
-    <button onclick="result('more')">
-      ⏳ Ik wil meer rust
-    </button>
-    <button onclick="result('help')">
-      🤝 Ik wil hulp
-    </button>
+    <h2>Je pauze is voorbij 🌿</h2>
+    <p>Hoe gaat het nu met je?</p>
+    <button onclick="result('better')">🙂 Het gaat beter</button>
+    <button onclick="result('more')">⏳ Ik wil meer rust</button>
+    <button onclick="result('help')">🤝 Ik wil hulp</button>
   </section>
 
   <section id="result" class="hidden">
     <h2 id="resultTitle"></h2>
     <p id="resultText"></p>
-    <button onclick="restart()">
-      Opnieuw beginnen
-    </button>
+    <button onclick="restart()">Opnieuw beginnen</button>
   </section>
 
   <p class="small">
-    Deze pagina slaat je antwoorden niet op.
-    Je bepaalt zelf wanneer je de PAUZE gebruikt.
+    Je kunt je telefoon rustig neerleggen.
+    Bij een vergrendeld scherm is het belletje
+    niet gegarandeerd.
   </p>
 </main>
 
 <script>
 let duration = 10;
+let endTime = 0;
+let interval = null;
+let audioContext = null;
+let soundReady = false;
+let timerFinished = false;
 
 function show(id) {
-  document.querySelectorAll("section").forEach(
-    section => section.classList.add("hidden")
-  );
+  for (const section of document.querySelectorAll("section")) {
+    section.classList.add("hidden");
+  }
   document.getElementById(id).classList.remove("hidden");
 }
 
 function chooseTime(minutes) {
   duration = minutes;
-  document.getElementById("minutes").textContent = minutes;
-  show("phone");
+  document.getElementById("selectedTime").textContent =
+    minutes + " minuten pauze";
+  show("ready");
 }
 
-function showInstructions(type) {
-  const steps = document.getElementById("steps");
+function startTimer() {
+  clearInterval(interval);
+  timerFinished = false;
 
-  if (type === "iphone") {
-    steps.innerHTML =
-      "1. Open de app <strong>Klok</strong> op je iPhone.<br>" +
-      "2. Kies <strong>Timers</strong>.<br>" +
-      "3. Stel <strong>" + duration +
-      " minuten</strong> in.<br>" +
-      "4. Kies eventueel een rustig geluid.<br>" +
-      "5. Tik op <strong>Start</strong>.<br>" +
-      "6. Ga terug naar deze pagina.";
-  } else {
-    steps.innerHTML =
-      "1. Open de app <strong>Klok</strong> op je telefoon.<br>" +
-      "2. Kies <strong>Timer</strong>.<br>" +
-      "3. Stel <strong>" + duration +
-      " minuten</strong> in.<br>" +
-      "4. Kies eventueel een rustig geluid.<br>" +
-      "5. Tik op <strong>Start</strong>.<br>" +
-      "6. Ga terug naar deze pagina.";
+  soundReady = false;
+  try {
+    const AudioContextClass =
+      window.AudioContext || window.webkitAudioContext;
+    if (AudioContextClass) {
+      audioContext = audioContext ||
+        new AudioContextClass();
+      audioContext.resume();
+      soundReady = true;
+    }
+  } catch (error) {
+    soundReady = false;
   }
 
-  show("instructions");
+  endTime = Date.now() + duration * 60 * 1000;
+  show("running");
+  updateClock();
+  interval = setInterval(updateClock, 500);
+}
+
+function updateClock() {
+  const remaining = Math.max(
+    0, Math.ceil((endTime - Date.now()) / 1000)
+  );
+
+  const minutes = Math.floor(remaining / 60);
+  const seconds = remaining % 60;
+
+  document.getElementById("clock").textContent =
+    String(minutes).padStart(2, "0") + ":" +
+    String(seconds).padStart(2, "0");
+
+  if (remaining === 0 && !timerFinished) {
+    timerFinished = true;
+    clearInterval(interval);
+    playSoftBell();
+    show("finished");
+  }
+}
+
+function playSoftBell() {
+  if (!audioContext || !soundReady ||
+      audioContext.state !== "running") return;
+
+  try {
+    const oscillator = audioContext.createOscillator();
+    const volume = audioContext.createGain();
+
+    oscillator.type = "sine";
+    oscillator.frequency.setValueAtTime(
+      660, audioContext.currentTime
+    );
+
+    volume.gain.setValueAtTime(
+      0.0001, audioContext.currentTime
+    );
+    volume.gain.exponentialRampToValueAtTime(
+      0.045, audioContext.currentTime + 0.06
+    );
+    volume.gain.exponentialRampToValueAtTime(
+      0.0001, audioContext.currentTime + 1.2
+    );
+
+    oscillator.connect(volume);
+    volume.connect(audioContext.destination);
+    oscillator.start();
+    oscillator.stop(audioContext.currentTime + 1.2);
+  } catch (error) {
+    // De pagina blijft werken als geluid niet lukt.
+  }
+}
+
+function finishEarly() {
+  clearInterval(interval);
+  timerFinished = true;
+  show("finished");
 }
 
 function result(choice) {
@@ -216,22 +225,30 @@ function result(choice) {
   } else if (choice === "more") {
     title.textContent = "Meer rust is oké";
     text.textContent =
-      "Je mag opnieuw een pauze kiezen en " +
-      "je telefoontimer opnieuw instellen.";
+      "Je mag opnieuw een pauze kiezen.";
   } else {
-    title.textContent =
-      "Je hoeft het niet alleen te doen";
+    title.textContent = "Je hoeft het niet alleen te doen";
     text.textContent =
-      "Vraag hulp aan je ouder, begeleider " +
-      "of iemand anders die je vertrouwt.";
+      "Vraag hulp aan je ouder, begeleider of " +
+      "iemand anders die je vertrouwt.";
   }
 
   show("result");
 }
 
 function restart() {
+  clearInterval(interval);
+  timerFinished = true;
   show("choose");
 }
+
+document.addEventListener("visibilitychange", function() {
+  if (!document.hidden &&
+      !document.getElementById("running")
+        .classList.contains("hidden")) {
+    updateClock();
+  }
+});
 </script>
 </body>
 </html>
