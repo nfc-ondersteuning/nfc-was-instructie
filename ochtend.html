@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mijn ochtendritueel</title>
+<title>Mijn ochtend | Mijn Moment</title>
 <style>
 * { box-sizing: border-box; }
 
@@ -19,10 +19,11 @@ body {
 main {
   max-width: 480px;
   margin: 20px auto;
-  padding: 26px 20px;
+  padding: 28px 22px;
   background: white;
   border-radius: 24px;
   box-shadow: 0 5px 22px #0000000d;
+  text-align: center;
 }
 
 .brand {
@@ -30,26 +31,33 @@ main {
   font-size: 13px;
   font-weight: bold;
   letter-spacing: 2px;
-  text-align: center;
 }
 
 h1 {
-  text-align: center;
   font-size: 30px;
-  margin: 18px 0 10px;
+  margin: 20px 0 12px;
 }
 
-.intro {
+h2 {
+  font-size: 27px;
+  margin: 16px 0;
+}
+
+p {
   color: #52635d;
   font-size: 17px;
-  line-height: 1.5;
-  text-align: center;
+  line-height: 1.6;
+}
+
+.emoji {
+  font-size: 70px;
+  margin: 28px 0 12px;
 }
 
 .progress-text {
-  text-align: center;
+  color: #527f72;
   font-weight: bold;
-  margin: 24px 0 12px;
+  margin-top: 26px;
 }
 
 .progress {
@@ -57,7 +65,7 @@ h1 {
   background: #e4eee8;
   border-radius: 20px;
   overflow: hidden;
-  margin-bottom: 24px;
+  margin: 12px 0 24px;
 }
 
 #progressBar {
@@ -67,201 +75,227 @@ h1 {
   transition: width 0.3s;
 }
 
-.step {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  width: 100%;
-  margin-bottom: 12px;
-  padding: 18px 14px;
-  border: 2px solid #edf3f0;
-  border-radius: 16px;
-  background: #f7faf8;
-  color: #263b36;
-  font-size: 17px;
-  text-align: left;
-  cursor: pointer;
-}
-
-.step .emoji {
-  font-size: 28px;
-  flex-shrink: 0;
-}
-
-.step .name {
-  flex: 1;
-}
-
-.step .check {
-  font-size: 24px;
-  color: #527f72;
-}
-
-.step.done {
-  background: #e0efe5;
-  border-color: #a8d0b6;
-}
-
-.step.done .name {
-  text-decoration: line-through;
-  color: #52635d;
-}
-
-.note {
-  margin: -4px 8px 15px 50px;
-  color: #66766f;
-  font-size: 13px;
-  line-height: 1.4;
-}
-
-.finish {
-  display: none;
-  margin-top: 24px;
-  padding: 22px;
-  border-radius: 18px;
+.message {
   background: #edf3f0;
-  text-align: center;
+  border-radius: 18px;
+  padding: 18px;
+  margin: 24px 0;
 }
 
-.finish h2 {
-  margin-top: 0;
-}
-
-.action {
-  display: block;
+button {
   width: 100%;
-  margin-top: 22px;
-  padding: 16px;
+  padding: 17px;
+  margin-top: 12px;
   border: 0;
   border-radius: 14px;
   background: #527f72;
   color: white;
-  font-size: 17px;
+  font-size: 18px;
   cursor: pointer;
 }
 
-.small {
-  color: #66766f;
-  font-size: 13px;
-  text-align: center;
-  margin-top: 22px;
+.secondary {
+  background: #edf3f0;
+  color: #263b36;
 }
+
+button:focus-visible {
+  outline: 3px solid #263b36;
+  outline-offset: 3px;
+}
+
+.small {
+  font-size: 13px;
+  color: #66766f;
+  margin-top: 24px;
+}
+
+.hidden { display: none; }
 </style>
 </head>
+
 <body>
 <main>
   <div class="brand">MIJN MOMENT ✨</div>
 
-  <h1>🌅 Mijn ochtend</h1>
-
-  <p class="intro">
-    Een rustige start van je dag.<br>
-    Vink af wat je hebt gedaan.
-  </p>
-
-  <div class="progress-text" id="progressText">
-    0 van 7 stappen gedaan
-  </div>
-
-  <div class="progress">
-    <div id="progressBar"></div>
-  </div>
-
-  <button class="step" aria-pressed="false" onclick="toggle(this)">
-    <span class="emoji">💊</span>
-    <span class="name">Medicatie innemen</span>
-    <span class="check">○</span>
-  </button>
-  <p class="note">
-    Alleen als dit voor jou is voorgeschreven.
-    Volg de afspraken over wanneer en hoe je het inneemt.
-  </p>
-
-  <button class="step" aria-pressed="false" onclick="toggle(this)">
-    <span class="emoji">🥣</span>
-    <span class="name">Ontbijten</span>
-    <span class="check">○</span>
-  </button>
-
-  <button class="step" aria-pressed="false" onclick="toggle(this)">
-    <span class="emoji">🚿</span>
-    <span class="name">Wassen</span>
-    <span class="check">○</span>
-  </button>
-
-  <button class="step" aria-pressed="false" onclick="toggle(this)">
-    <span class="emoji">👕</span>
-    <span class="name">Aankleden</span>
-    <span class="check">○</span>
-  </button>
-
-  <button class="step" aria-pressed="false" onclick="toggle(this)">
-    <span class="emoji">🪥</span>
-    <span class="name">Tandenpoetsen</span>
-    <span class="check">○</span>
-  </button>
-
-  <button class="step" aria-pressed="false" onclick="toggle(this)">
-    <span class="emoji">🌸</span>
-    <span class="name">Deo/parfum opdoen</span>
-    <span class="check">○</span>
-  </button>
-
-  <button class="step" aria-pressed="false" onclick="toggle(this)">
-    <span class="emoji">🪮</span>
-    <span class="name">Haren borstelen</span>
-    <span class="check">○</span>
-  </button>
-
-  <div class="finish" id="finish">
-    <h2>🎉 Je bent klaar!</h2>
+  <section id="welcome">
+    <h1>🌅 Goedemorgen!</h1>
     <p>
-      Je hebt je ochtendstappen afgerond.
-      Fijne dag! 💚
+      Begin je dag rustig, stap voor stap.
+      Je hoeft niet alles tegelijk te doen.
     </p>
-  </div>
 
-  <button class="action" onclick="resetSteps()">
-    Opnieuw beginnen
-  </button>
+    <div class="message">
+      <p>
+        We doen samen zeven ochtendstappen.
+        Je ziet steeds maar één stap tegelijk.
+      </p>
+    </div>
+
+    <button onclick="startRoutine()">
+      Start mijn ochtend
+    </button>
+  </section>
+
+  <section id="routine" class="hidden">
+    <div class="progress-text" id="progressText">
+      Stap 1 van 7
+    </div>
+
+    <div class="progress">
+      <div id="progressBar"></div>
+    </div>
+
+    <div class="emoji" id="stepEmoji"></div>
+
+    <h2 id="stepTitle"></h2>
+
+    <div class="message">
+      <p id="stepDescription"></p>
+    </div>
+
+    <button id="nextButton" onclick="nextStep()">
+      Gedaan ✓ – volgende stap
+    </button>
+
+    <button class="secondary" onclick="previousStep()">
+      Vorige stap
+    </button>
+  </section>
+
+  <section id="finished" class="hidden">
+    <div class="emoji">🌟</div>
+
+    <h1>Je bent klaar!</h1>
+
+    <p>
+      Je hebt je ochtendroutine doorlopen.
+      Goed dat je de tijd hebt genomen.
+    </p>
+
+    <div class="message">
+      <p>
+        Je kunt nu rustig verder met je dag.
+        Fijne dag! 💚
+      </p>
+    </div>
+
+    <button onclick="startRoutine()">
+      Opnieuw beginnen
+    </button>
+  </section>
 
   <p class="small">
-    Je kunt stappen in je eigen volgorde doen.
-    De pagina bewaart je vinkjes niet als je hem sluit.
+    Doe de stappen volgens jouw eigen afspraken.
+    De pagina slaat geen gegevens op.
   </p>
 </main>
 
 <script>
-function toggle(button) {
-  const done = button.classList.toggle("done");
-  button.setAttribute("aria-pressed", String(done));
-  button.querySelector(".check").textContent = done ? "✓" : "○";
-  updateProgress();
-}
+const steps = [
+  {
+    emoji: "💊",
+    title: "Medicatie innemen",
+    description:
+      "Gebruik je voorgeschreven medicatie? Neem deze volgens de afspraken over tijd en hoeveelheid. Gebruik je geen medicatie? Dan kun je deze stap overslaan."
+  },
+  {
+    emoji: "🥣",
+    title: "Ontbijten",
+    description:
+      "Neem rustig de tijd om iets te ontbijten."
+  },
+  {
+    emoji: "🚿",
+    title: "Wassen",
+    description:
+      "Fris jezelf op. Doe dit op een manier die voor jou prettig is."
+  },
+  {
+    emoji: "👕",
+    title: "Aankleden",
+    description:
+      "Trek kleding aan waarin jij je prettig voelt."
+  },
+  {
+    emoji: "🪥",
+    title: "Tandenpoetsen",
+    description:
+      "Poets je tanden zodat je fris aan je dag begint."
+  },
+  {
+    emoji: "🌸",
+    title: "Deo/parfum",
+    description:
+      "Gebruik deodorant of parfum als je dat wilt."
+  },
+  {
+    emoji: "🪮",
+    title: "Haren borstelen",
+    description:
+      "Borstel of verzorg je haar op jouw manier."
+  }
+];
 
-function updateProgress() {
-  const total = document.querySelectorAll(".step").length;
-  const done = document.querySelectorAll(".step.done").length;
+let currentStep = 0;
 
-  document.getElementById("progressText").textContent =
-    done + " van " + total + " stappen gedaan";
-
-  document.getElementById("progressBar").style.width =
-    (done / total * 100) + "%";
-
-  document.getElementById("finish").style.display =
-    done === total ? "block" : "none";
-}
-
-function resetSteps() {
-  document.querySelectorAll(".step").forEach(button => {
-    button.classList.remove("done");
-    button.setAttribute("aria-pressed", "false");
-    button.querySelector(".check").textContent = "○";
+function show(screen) {
+  document.querySelectorAll("section").forEach(section => {
+    section.classList.add("hidden");
   });
 
-  updateProgress();
+  document.getElementById(screen).classList.remove("hidden");
   window.scrollTo(0, 0);
+}
+
+function startRoutine() {
+  currentStep = 0;
+  renderStep();
+  show("routine");
+}
+
+function renderStep() {
+  const step = steps[currentStep];
+
+  document.getElementById("progressText").textContent =
+    "Stap " + (currentStep + 1) + " van " + steps.length;
+
+  document.getElementById("progressBar").style.width =
+    (currentStep / steps.length * 100) + "%";
+
+  document.getElementById("stepEmoji").textContent =
+    step.emoji;
+
+  document.getElementById("stepTitle").textContent =
+    step.title;
+
+  document.getElementById("stepDescription").textContent =
+    step.description;
+
+  document.getElementById("nextButton").textContent =
+    currentStep === steps.length - 1
+      ? "Gedaan ✓ – afronden"
+      : "Gedaan ✓ – volgende stap";
+}
+
+function nextStep() {
+  if (currentStep < steps.length - 1) {
+    currentStep++;
+    renderStep();
+    window.scrollTo(0, 0);
+  } else {
+    show("finished");
+  }
+}
+
+function previousStep() {
+  if (currentStep > 0) {
+    currentStep--;
+    renderStep();
+    window.scrollTo(0, 0);
+  } else {
+    show("welcome");
+  }
 }
 </script>
 </body>
