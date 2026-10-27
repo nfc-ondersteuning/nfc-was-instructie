@@ -239,6 +239,11 @@ const steps = [
 
 let currentStep = 0;
 
+window.addEventListener("DOMContentLoaded", function() {
+  renderStep();
+  show("routine");
+});
+
 function show(screen) {
   document.querySelectorAll("section").forEach(section => {
     section.classList.add("hidden");
