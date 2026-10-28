@@ -172,14 +172,6 @@ button:focus-visible {
   font-size: 13px;
   color: #7b8980;
 }
-
-input {
-  width: 100%;
-  padding: 15px;
-  border: 2px solid #d9e7dc;
-  border-radius: 14px;
-  font-size: 17px;
-}
 </style>
 </head>
 
@@ -324,12 +316,6 @@ input {
       Fijn dat je verschil merkt.
       Het hoeft niet meteen helemaal rustig te zijn.
     </p>
-
-    <div class="note">
-      <p>Wat is één kleine stap die je nu wilt zetten?</p>
-      <input id="nextStep"
-             placeholder="Bijvoorbeeld: even iets eten">
-    </div>
 
     <button class="primary" onclick="go('done')">
       Verder met mijn dag
@@ -584,7 +570,6 @@ function restart() {
   stopTimer();
   firstScore = 0;
   currentActivity = null;
-  document.getElementById("nextStep").value = "";
   go("welcome");
 }
 
