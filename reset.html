@@ -6,31 +6,133 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>RESET | Mijn Moment</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;padding:18px;background:#eaf2ed;color:#263b36;font-family:Arial,sans-serif}
-main{max-width:480px;margin:15px auto;padding:26px 20px;background:white;border-radius:24px;box-shadow:0 5px 22px #0000000d;text-align:center}
-.brand{font-size:13px;font-weight:bold;letter-spacing:2px;color:#527f72}
-h1{font-size:31px;margin:20px 0 12px}
-h2{font-size:25px;line-height:1.3}
-p{font-size:17px;line-height:1.55;color:#52635d}
-.hidden{display:none}
-button{font-family:inherit;cursor:pointer}
-.action,.choice{width:100%;border:0;border-radius:15px;padding:17px;margin-top:11px;font-size:17px}
-.action{background:#527f72;color:white;font-weight:bold}
-.secondary{background:#edf3f0;color:#263b36}
-.choice{background:#edf3f0;color:#263b36;text-align:left}
-.help{background:#fff0e9;color:#694638}
-.message{background:#edf3f0;border-radius:18px;padding:16px;margin:20px 0}
-.big{font-size:55px;margin:18px 0}
-.scale{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:22px 0}
-.scale button{border:0;border-radius:12px;padding:13px 0;background:#edf3f0;font-size:18px;font-weight:bold;color:#263b36}
-.clock{font-size:60px;font-weight:bold;font-variant-numeric:tabular-nums;margin:25px 0 12px}
-.progress{height:10px;background:#e4eee8;border-radius:20px;overflow:hidden}
-#bar{height:100%;width:100%;background:#527f72}
-.small{font-size:13px;color:#66766f}
-button:focus-visible{outline:3px solid #263b36;outline-offset:3px}
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 18px;
+  background: #eaf2ed;
+  color: #263b36;
+  font-family: Arial, sans-serif;
+}
+
+main {
+  max-width: 480px;
+  margin: 15px auto;
+  padding: 26px 20px;
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 5px 22px #0000000d;
+  text-align: center;
+}
+
+.brand {
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #527f72;
+}
+
+h1 { font-size: 31px; margin: 20px 0 12px; }
+h2 { font-size: 25px; line-height: 1.3; }
+
+p {
+  font-size: 17px;
+  line-height: 1.55;
+  color: #52635d;
+}
+
+.hidden { display: none; }
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.action, .choice {
+  width: 100%;
+  border: 0;
+  border-radius: 15px;
+  padding: 17px;
+  margin-top: 11px;
+  font-size: 17px;
+}
+
+.action {
+  background: #527f72;
+  color: white;
+  font-weight: bold;
+}
+
+.secondary {
+  background: #edf3f0;
+  color: #263b36;
+}
+
+.choice {
+  background: #edf3f0;
+  color: #263b36;
+  text-align: left;
+}
+
+.message {
+  background: #edf3f0;
+  border-radius: 18px;
+  padding: 16px;
+  margin: 20px 0;
+}
+
+.big { font-size: 55px; margin: 18px 0; }
+
+.scale {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  margin: 22px 0;
+}
+
+.scale button {
+  border: 0;
+  border-radius: 12px;
+  padding: 13px 0;
+  background: #edf3f0;
+  color: #263b36;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.clock {
+  font-size: 60px;
+  font-weight: bold;
+  font-variant-numeric: tabular-nums;
+  margin: 25px 0 12px;
+}
+
+.progress {
+  height: 10px;
+  background: #e4eee8;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+#bar {
+  height: 100%;
+  width: 100%;
+  background: #527f72;
+}
+
+.small {
+  font-size: 13px;
+  color: #66766f;
+}
+
+button:focus-visible {
+  outline: 3px solid #263b36;
+  outline-offset: 3px;
+}
 </style>
 </head>
+
 <body>
 <main>
 <div class="brand">MIJN MOMENT 🌿</div>
@@ -38,42 +140,71 @@ button:focus-visible{outline:3px solid #263b36;outline-offset:3px}
 <section id="start">
   <div class="big">🌿</div>
   <h1>Even resetten</h1>
-  <p>Je hoofd zit vol of je voelt spanning. We kijken rustig wat jou kan helpen.</p>
-  <button class="action" onclick="show('before')">Start mijn RESET</button>
-  <button class="action help" onclick="show('help')">Ik heb nu hulp nodig</button>
+  <p>
+    Je hoofd zit vol of je voelt spanning.
+    We kijken rustig wat jou kan helpen.
+  </p>
+  <button class="action" onclick="show('before')">
+    Start mijn RESET
+  </button>
 </section>
 
 <section id="before" class="hidden">
   <h2>Hoe hoog is je spanning?</h2>
   <p>0 = helemaal rustig<br>10 = heel veel spanning</p>
   <div class="scale" id="scaleBefore"></div>
-  <button class="action help" onclick="show('help')">Ik heb nu hulp nodig</button>
 </section>
 
 <section id="choose" class="hidden">
   <h2>Wat helpt jou nu?</h2>
   <p>Kies één ding. Je hoeft niet alles te doen.</p>
-  <button class="choice" onclick="choose('breath')">🌬️ Rustig ademen — 1 minuut</button>
-  <button class="choice" onclick="choose('walk')">🚶 Even lopen — 5 minuten</button>
-  <button class="choice" onclick="choose('music')">🎧 Rustige muziek — 5 minuten</button>
-  <button class="choice" onclick="choose('drink')">🥤 Iets drinken — zonder timer</button>
-  <button class="choice" onclick="choose('phone')">📵 Telefoon wegleggen — 5 minuten</button>
-  <button class="choice" onclick="choose('contact')">💬 Iemand laten weten dat de spanning oploopt</button>
-  <button class="action help" onclick="show('help')">Ik heb nu hulp nodig</button>
+
+  <button class="choice" onclick="choose('breath')">
+    🌬️ Rustig ademen
+  </button>
+  <button class="choice" onclick="choose('walk')">
+    🚶 Even lopen
+  </button>
+  <button class="choice" onclick="choose('music')">
+    🎧 Muziek luisteren
+  </button>
+  <button class="choice" onclick="choose('drink')">
+    🥤 Iets drinken
+  </button>
+  <button class="choice" onclick="choose('phone')">
+    📵 Telefoon wegleggen
+  </button>
+  <button class="choice" onclick="choose('contact')">
+    💬 Iemand een bericht sturen
+  </button>
 </section>
 
 <section id="exercise" class="hidden">
   <div class="big" id="activityEmoji"></div>
   <h2 id="activityTitle"></h2>
-  <div class="message"><p id="activityText"></p></div>
+
+  <div class="message">
+    <p id="activityText"></p>
+  </div>
+
   <div id="timerArea" class="hidden">
     <div class="clock" id="clock">05:00</div>
-    <div class="progress"><div id="bar"></div></div>
-    <button class="action" id="startTimerButton" onclick="startTimer()">Start mijn moment</button>
+    <div class="progress">
+      <div id="bar"></div>
+    </div>
+    <button class="action" id="startTimerButton"
+            onclick="startTimer()">
+      Start mijn moment
+    </button>
   </div>
-  <button class="action secondary" onclick="finishExercise()">Ik ben klaar / eerder afronden</button>
-  <button class="action help" onclick="stopAndHelp()">Ik heb nu hulp nodig</button>
-  <p class="small" id="timerNote"></p>
+
+  <button class="action secondary" onclick="finishExercise()">
+    Ik ben klaar / eerder afronden
+  </button>
+
+  <p class="small">
+    Je mag altijd stoppen als een oefening niet prettig voelt.
+  </p>
 </section>
 
 <section id="after" class="hidden">
@@ -81,194 +212,259 @@ button:focus-visible{outline:3px solid #263b36;outline-offset:3px}
   <h2>Hoe hoog is je spanning nu?</h2>
   <p>Voel rustig even hoe het met je gaat.</p>
   <div class="scale" id="scaleAfter"></div>
-  <button class="action help" onclick="show('help')">Ik heb nu hulp nodig</button>
 </section>
 
 <section id="lower" class="hidden">
   <div class="big">💚</div>
   <h2>Je spanning is wat gezakt</h2>
-  <p>Fijn dat je verschil merkt. Je hoeft niet alles tegelijk op te lossen.</p>
+  <p>
+    Fijn dat je verschil merkt.
+    Je hoeft niet alles tegelijk op te lossen.
+  </p>
+
   <div class="message">
     <p>Wat is één kleine stap die je nu kunt zetten?</p>
   </div>
-  <button class="action" onclick="restart()">Ik kan weer verder</button>
-  <button class="action secondary" onclick="show('choose')">Nog iets proberen</button>
+
+  <button class="action" onclick="restart()">
+    Ik kan weer verder
+  </button>
+
+  <button class="action secondary" onclick="show('choose')">
+    Nog iets proberen
+  </button>
 </section>
 
 <section id="same" class="hidden">
   <div class="big">💛</div>
   <h2>Het zakt nog niet</h2>
-  <p>Soms helpt één oefening niet genoeg. Dat betekent niet dat je iets verkeerd doet.</p>
+
+  <p>
+    Soms helpt één oefening niet genoeg.
+    Dat betekent niet dat je iets verkeerd doet.
+  </p>
+
   <div class="message">
-    <p>Je kunt iets anders proberen. Of kijk wat jou helpt volgens je signaleringsplan.</p>
+    <p>
+      Je kunt iets anders proberen.
+      Of kijk wat jou helpt volgens je signaleringsplan.
+    </p>
   </div>
-  <button class="action" onclick="show('choose')">Iets anders proberen</button>
-  <button class="action help" onclick="show('help')">Ik wil hulp vragen</button>
+
+  <button class="action" onclick="show('choose')">
+    Iets anders proberen
+  </button>
+
+  <button class="action secondary" onclick="show('help')">
+    Ik wil hulp vragen
+  </button>
 </section>
 
 <section id="help" class="hidden">
   <div class="big">🤝</div>
   <h2>Je hoeft dit niet alleen te doen</h2>
-  <p>Neem contact op met de persoon met wie je dit hebt afgesproken, bijvoorbeeld je ouder of begeleider.</p>
+
+  <p>
+    Neem contact op met de persoon met wie je dit
+    hebt afgesproken, bijvoorbeeld je ouder of begeleider.
+  </p>
+
   <div class="message">
-    <p>Je kunt zeggen:<br><strong>“Mijn spanning loopt op. Kun je me helpen?”</strong></p>
+    <p>
+      Je kunt zeggen:<br>
+      <strong>
+        "Mijn spanning loopt op. Kun je me helpen?"
+      </strong>
+    </p>
   </div>
+
   <p>Gebruik ook de afspraken uit je signaleringsplan.</p>
-  <button class="action secondary" onclick="restart()">Terug naar RESET</button>
+
+  <button class="action secondary" onclick="restart()">
+    Terug naar RESET
+  </button>
 </section>
 
-<p class="small">Deze pagina slaat je spanning of keuzes niet op.</p>
+<p class="small">
+  Deze pagina slaat je spanning of keuzes niet op.
+</p>
 </main>
 
 <script>
 const activities = {
-  breath:{
-    emoji:"🌬️",
-    title:"Eén minuut rustig ademen",
-    text:"Adem op een manier die prettig voelt. Je hoeft niets te forceren. Vind je dit niet fijn? Stop gerust.",
-    seconds:60
+  breath: {
+    emoji: "🌬️",
+    title: "Rustig ademen",
+    text: "Adem één minuut rustig op een manier die prettig voelt. Je hoeft niets te forceren.",
+    seconds: 60
   },
-  walk:{
-    emoji:"🚶",
-    title:"Vijf minuten lopen",
-    text:"Loop rustig een rondje op een veilige plek. Kijk om je heen en voel je voeten op de grond.",
-    seconds:300
+  walk: {
+    emoji: "🚶",
+    title: "Even lopen",
+    text: "Loop vijf minuten rustig een rondje op een veilige plek. Kijk om je heen en voel je voeten op de grond.",
+    seconds: 300
   },
-  music:{
-    emoji:"🎧",
-    title:"Rustige muziek luisteren",
-    text:"Zet zelf een nummer of rustige muziek op die jij prettig vindt. Luister vijf minuten, of stop eerder.",
-    seconds:300
+  music: {
+    emoji: "🎧",
+    title: "Muziek luisteren",
+    text: "Zet een rustig nummer of muziek op waar jij je fijn bij voelt. Neem vijf minuten om te luisteren.",
+    seconds: 300
   },
-  drink:{
-    emoji:"🥤",
-    title:"Even iets drinken",
-    text:"Pak iets te drinken. Neem rustig een paar slokken. Neem de tijd die jij nodig hebt.",
-    seconds:0
+  drink: {
+    emoji: "🥤",
+    title: "Iets drinken",
+    text: "Pak iets te drinken. Neem rustig een paar slokken. Neem de tijd die jij nodig hebt.",
+    seconds: 0
   },
-  phone:{
-    emoji:"📵",
-    title:"Je telefoon even wegleggen",
-    text:"Leg je telefoon vijf minuten opzij. Kijk na ongeveer vijf minuten weer hoe het gaat.",
-    seconds:300
+  phone: {
+    emoji: "📵",
+    title: "Telefoon wegleggen",
+    text: "Leg je telefoon ongeveer vijf minuten weg. Kijk daarna rustig hoe het met je gaat.",
+    seconds: 0
   },
-  contact:{
-    emoji:"💬",
-    title:"Iemand een bericht sturen",
-    text:"Laat iemand die je vertrouwt weten dat je spanning oploopt. Je hoeft niet eerst te wachten tot het erger wordt.",
-    seconds:0
+  contact: {
+    emoji: "💬",
+    title: "Iemand een bericht sturen",
+    text: "Laat iemand die je vertrouwt weten dat je spanning oploopt. Je hoeft niet te wachten tot het erger wordt.",
+    seconds: 0
   }
 };
 
-let before=0;
-let current=null;
-let endTime=0;
-let interval=null;
-let running=false;
+let before = 0;
+let current = null;
+let endTime = 0;
+let interval = null;
+let running = false;
 
-function stopTimer(){
+function stopTimer() {
   clearInterval(interval);
-  interval=null;
-  running=false;
+  interval = null;
+  running = false;
 }
 
-function show(id){
-  document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"));
+function show(id) {
+  document.querySelectorAll("section").forEach(section => {
+    section.classList.add("hidden");
+  });
+
   document.getElementById(id).classList.remove("hidden");
-  window.scrollTo(0,0);
+  window.scrollTo(0, 0);
 }
 
-function makeScale(id,callback){
-  const holder=document.getElementById(id);
-  for(let i=0;i<=10;i++){
-    const b=document.createElement("button");
-    b.textContent=i;
-    b.setAttribute("aria-label","Spanning "+i+" van 10");
-    b.onclick=()=>callback(i);
-    holder.appendChild(b);
+function makeScale(id, callback) {
+  const holder = document.getElementById(id);
+
+  for (let i = 0; i <= 10; i++) {
+    const button = document.createElement("button");
+    button.textContent = i;
+    button.setAttribute(
+      "aria-label", "Spanning " + i + " van 10"
+    );
+    button.onclick = () => callback(i);
+    holder.appendChild(button);
   }
 }
 
-makeScale("scaleBefore",n=>{
-  before=n;
+makeScale("scaleBefore", number => {
+  before = number;
   show("choose");
 });
 
-makeScale("scaleAfter",n=>{
-  if(n<before)show("lower");
-  else show("same");
+makeScale("scaleAfter", number => {
+  if (number < before) {
+    show("lower");
+  } else {
+    show("same");
+  }
 });
 
-function choose(key){
+function choose(key) {
   stopTimer();
-  current=activities[key];
-  document.getElementById("activityEmoji").textContent=current.emoji;
-  document.getElementById("activityTitle").textContent=current.title;
-  document.getElementById("activityText").textContent=current.text;
+  current = activities[key];
 
-  const timed=current.seconds>0;
-  document.getElementById("timerArea").classList.toggle("hidden",!timed);
-  document.getElementById("startTimerButton").classList.remove("hidden");
-  document.getElementById("timerNote").textContent=timed
-    ? "De timer werkt zolang de pagina actief is. Bij een vergrendeld scherm klinkt geen betrouwbare melding."
-    : "Voor deze activiteit hoef je geen klokje te gebruiken.";
+  document.getElementById("activityEmoji").textContent =
+    current.emoji;
+  document.getElementById("activityTitle").textContent =
+    current.title;
+  document.getElementById("activityText").textContent =
+    current.text;
 
-  if(timed){
+  const hasTimer = current.seconds > 0;
+
+  document.getElementById("timerArea").classList.toggle(
+    "hidden", !hasTimer
+  );
+
+  document.getElementById("startTimerButton").classList.remove(
+    "hidden"
+  );
+
+  if (hasTimer) {
     renderClock(current.seconds);
-    document.getElementById("bar").style.width="100%";
+    document.getElementById("bar").style.width = "100%";
   }
+
   show("exercise");
 }
 
-function renderClock(seconds){
-  const m=Math.floor(seconds/60);
-  const s=seconds%60;
-  document.getElementById("clock").textContent=
-    String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+function renderClock(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const rest = seconds % 60;
+
+  document.getElementById("clock").textContent =
+    String(minutes).padStart(2, "0") + ":" +
+    String(rest).padStart(2, "0");
 }
 
-function startTimer(){
-  if(!current||current.seconds===0)return;
+function startTimer() {
+  if (!current || current.seconds === 0) return;
+
   stopTimer();
-  running=true;
-  endTime=Date.now()+current.seconds*1000;
-  document.getElementById("startTimerButton").classList.add("hidden");
+  running = true;
+  endTime = Date.now() + current.seconds * 1000;
+
+  document.getElementById("startTimerButton").classList.add(
+    "hidden"
+  );
+
   tick();
-  interval=setInterval(tick,500);
+  interval = setInterval(tick, 500);
 }
 
-function tick(){
-  if(!running)return;
-  const remaining=Math.max(0,Math.ceil((endTime-Date.now())/1000));
-  renderClock(remaining);
-  document.getElementById("bar").style.width=
-    (remaining/current.seconds*100)+"%";
+function tick() {
+  if (!running) return;
 
-  if(remaining===0){
+  const remaining = Math.max(
+    0, Math.ceil((endTime - Date.now()) / 1000)
+  );
+
+  renderClock(remaining);
+
+  document.getElementById("bar").style.width =
+    (remaining / current.seconds * 100) + "%";
+
+  if (remaining === 0) {
     stopTimer();
     show("after");
   }
 }
 
-function finishExercise(){
+function finishExercise() {
   stopTimer();
   show("after");
 }
 
-function stopAndHelp(){
+function restart() {
   stopTimer();
-  show("help");
-}
-
-function restart(){
-  stopTimer();
-  before=0;
-  current=null;
+  before = 0;
+  current = null;
   show("start");
 }
 
-document.addEventListener("visibilitychange",()=>{
-  if(!document.hidden&&running)tick();
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden && running) {
+    tick();
+  }
 });
 </script>
 </body>
